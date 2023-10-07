@@ -540,6 +540,13 @@ app.post('/submit', iupload.single('image'), async (req, res) => {
             existingData.image.data = fs.readFileSync(req.file.path);
             existingData.image.contentType = req.file.mimetype;
             await existingData.save();
+            console.log("profile image saved to the database by "+userId);
+            // Delete the image file from the "uploads" folder
+            fs.unlink(req.file.path, (err) => {
+                if (err) {
+                    console.error(err);
+                }
+            });
         } else {
             // Create a new document
             const newData = new userDetails({
