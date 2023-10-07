@@ -575,8 +575,8 @@ app.get("/userContact", (req, res) => {
         userDetails.find({ _id: req.session.userId })
             .then(details => {
                 // console.log(details[0].Name)
-                console.log(details);
-                console.log(details[0].Gender);
+                // console.log(details);
+                // console.log(details[0].Gender);
                 res.render("userContactInfo.ejs", {
                     array: details
                 });
@@ -619,8 +619,8 @@ app.get("/jobDetails",(req,res)=>{
         userDetails.find({ _id: req.session.userId })
             .then(details => {
                 // console.log(details[0].Name)
-                console.log(details);
-                console.log(details[0].Gender);
+                // console.log(details);
+                // console.log(details[0].Gender);
                 res.render("jobDetails.ejs", {
                     array: details
                 });
@@ -629,6 +629,31 @@ app.get("/jobDetails",(req,res)=>{
                 console.log(err);
             })
     }else{
+        res.redirect("/login");
+    }
+});
+//handling job details update request
+app.post("/jobDetails", (req, res) => {
+    if (req.session.isAuthorised) {
+        userDetails.updateOne({ _id: req.session.userId },
+             {COMPANY_1:req.body.COMPANY_1,
+                COMPANY_2:req.body.COMPANY_2,
+                COMPANY_3:req.body.COMPANY_3,
+                COMPANY_4:req.body.COMPANY_4,
+                COMPANY_5:req.body.COMPANY_5, 
+                PACKAGE_1:req.body.PACKAGE_1,
+                PACKAGE_2:req.body.PACKAGE_2,
+                PACKAGE_3:req.body.PACKAGE_3,
+                PACKAGE_4:req.body.PACKAGE_4,
+                PACKAGE_5:req.body.PACKAGE_5
+            })
+            .then(()=> {
+                res.redirect("/jobDetails");
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    } else {
         res.redirect("/login");
     }
 });
@@ -681,11 +706,15 @@ app.get('/download/:id', (req, res) => {
 
 
 
-app.get("/logout",(req,res)=>{
-    req.session.destroy();
-    res.redirect("/");
+app.get("/logout", (req, res) => {
+    // Destroy the session and redirect to the login page
+    req.session.destroy(err => {
+        if (err) {
+            console.error(err);
+        }
+        res.redirect("/login");
+    });
 });
-
 
 
 

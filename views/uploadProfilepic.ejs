@@ -377,6 +377,10 @@
           preview.src = "";
         }
       }
+      window.addEventListener("popstate", function (event) {
+        // Reload the page
+        location.reload();
+      });
     </script>
   </body>
 </html>

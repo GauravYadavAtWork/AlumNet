@@ -9,14 +9,17 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap"
+      rel="stylesheet"
+    />
     <link rel="Webpage Icon" href="/PSIT_logo_green.svg" style="fill: green" />
     <style>
       /* Styles for the navigation and header */
       body {
-        font-family: 'Work Sans', sans-serif;
+        font-family: "Work Sans", sans-serif;
         margin: 0;
         padding: 0;
         background-color: #f4f4f4;
@@ -334,7 +337,7 @@
               <input
                 type="text"
                 id="name"
-                name="name"
+                name="COMPANY_1"
                 class="profile-input"
                 value="<%= array[0].COMPANY_1 %>"
               />
@@ -344,7 +347,7 @@
               <input
                 type="text"
                 id="branch"
-                name="branch"
+                name="PACKAGE_1"
                 class="profile-input"
                 value="<%= array[0].PACKAGE_1%>"
               />
@@ -354,7 +357,7 @@
               <input
                 type="text"
                 id="passingYear"
-                name="passingYear"
+                name="COMPANY_2"
                 class="profile-input"
                 min="1900"
                 max="2099"
@@ -366,7 +369,7 @@
               <input
                 type="text"
                 id="passingYear"
-                name="passingYear"
+                name="PACKAGE_2"
                 class="profile-input"
                 min="1900"
                 max="2099"
@@ -378,7 +381,7 @@
               <input
                 type="text"
                 id="passingYear"
-                name="passingYear"
+                name="COMPANY_3"
                 class="profile-input"
                 min="1900"
                 max="2099"
@@ -390,7 +393,7 @@
               <input
                 type="text"
                 id="passingYear"
-                name="passingYear"
+                name="PACKAGE_3"
                 class="profile-input"
                 min="1900"
                 max="2099"
@@ -402,7 +405,7 @@
               <input
                 type="text"
                 id="name"
-                name="name"
+                name="COMPANY_4"
                 class="profile-input"
                 value="<%= array[0].COMPANY_4 %>"
               />
@@ -412,7 +415,7 @@
               <input
                 type="text"
                 id="branch"
-                name="branch"
+                name="PACKAGE_4"
                 class="profile-input"
                 value="<%= array[0].PACKAGE_4%>"
               />
@@ -422,7 +425,7 @@
               <input
                 type="text"
                 id="passingYear"
-                name="passingYear"
+                name="COMPANY_5"
                 class="profile-input"
                 min="1900"
                 max="2099"
@@ -434,7 +437,7 @@
               <input
                 type="text"
                 id="passingYear"
-                name="passingYear"
+                name="PACKAGE_5"
                 class="profile-input"
                 min="1900"
                 max="2099"
@@ -474,6 +477,10 @@
           preview.src = "";
         }
       }
+      window.addEventListener("popstate", function (event) {
+        // Reload the page
+        location.reload();
+      });
     </script>
   </body>
 </html>
