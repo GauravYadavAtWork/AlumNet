@@ -326,113 +326,28 @@
     </section>
 
     <div class="profile-section">
-      <div class="profile-title">My Profile</div>
-      <form>
+      <div class="profile-title">Upload Profile Picture</div>
+
+      <form action="/submit" method="post" enctype="multipart/form-data">
         <div class="form-content">
-          <div>
-            <% if (locals.aluminiData){ %>
-            <div class="profile-item">
-              <label for="name" class="profile-label">Name:</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                class="profile-input"
-                value="<%= aluminiData.Name %>"
-                readonly
-              />
-            </div>
-            <div class="profile-item">
-              <label for="branch" class="profile-label">Major:</label>
-              <input
-                type="text"
-                id="branch"
-                name="branch"
-                class="profile-input"
-                value="<%= aluminiData.Branch %>"
-                readonly
-              />
-            </div>
-            <div class="profile-item">
-              <label for="passingYear" class="profile-label"
-                >Graduation Year:</label
-              >
-              <input
-                type="number"
-                id="passingYear"
-                name="passingYear"
-                class="profile-input"
-                min="1900"
-                max="2099"
-                value="<%= aluminiData.PassingYear %>"
-                readonly
-              />
-            </div>
-            <div class="profile-item">
-              <label for="passingYear" class="profile-label">Gender:</label>
-              <input
-                type="text"
-                id="passingYear"
-                name="passingYear"
-                class="profile-input"
-                min="1900"
-                max="2099"
-                value="<%= aluminiData.Gender %>"
-                readonly
-              />
-            </div>
-            <div class="profile-item">
-              <label for="passingYear" class="profile-label"
-                >10<sup>th</sup> Percentage</label
-              >
-              <input
-                type="text"
-                id="passingYear"
-                name="passingYear"
-                class="profile-input"
-                min="1900"
-                max="2099"
-                value="<%= aluminiData.X_PERCENT%>%"
-                readonly
-              />
-            </div>
-            <div class="profile-item">
-              <label for="passingYear" class="profile-label"
-                >12<sup>th</sup> Percentage</label
-              >
-              <input
-                type="text"
-                id="passingYear"
-                name="passingYear"
-                class="profile-input"
-                min="1900"
-                max="2099"
-                value="<%= aluminiData.XII_PERCENT%>%"
-                readonly
-              />
-            </div>
-          </div>
-          <% } %>
-          <!-- Image Upload Section -->
           <div class="image-upload-container">
-            <div class="image-upload-container">
-              <% if (aluminiData && aluminiData.image && aluminiData.image.data)
-              { %>
-              <!-- Display the image if it exists -->
-              <img
-                src="data:<%= aluminiData.image.contentType %>;base64,<%= aluminiData.image.data.toString('base64') %>"
-                alt="User Image"
-                height="150px"
-                width="150px"
-              />
-              <% } else { %>
-              <!-- Display a placeholder or message if no image is available -->
-              <p>No image available.</p>
-              <% } %>
-            </div>
-            <a href="/uploadimg">upload new image</a>
+            <img id="imagePreview" alt="" />
+            <label for="imageUpload" class="image-upload-label"
+              >Upload Image</label
+            >
+            <input
+              type="file"
+              id="imageUpload"
+              accept="image/*"
+              onchange="previewImage();"
+              name="image"
+              required
+            />
           </div>
           <br />
+        </div>
+        <div class="profile-item">
+          <button type="submit" class="profile-submit-btn">Submit</button>
         </div>
       </form>
     </div>

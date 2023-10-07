@@ -6,11 +6,18 @@ import session from "express-session";
 import nodemailer from "nodemailer";
 import dotenv from 'dotenv';
 import multer from 'multer';
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 dotenv.config();
 
 
 const port = 3000;
 const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 
 //middlewares
 app.use(bodyParser.urlencoded({ extended: true }));  //including bodyparser
@@ -54,7 +61,12 @@ const aluminiSchema = new mongoose.Schema({
     PACKAGE_3:String,
     PACKAGE_4:String,
     PACKAGE_5:String,
-});
+    image: {
+        data: Buffer,
+        contentType: String,
+      }
+} ,{ collection: 'aluminidetail1s' });
+
 
 
 //making mongoose model
@@ -470,15 +482,40 @@ app.get("/account", (req, res) => {
 });
 
 // handeling client profile page
-app.get("/account/profile", (req, res) => {
+app.get('/account/profile', (req, res) => {
+    if(req.session.isAuthorised){
+        userDetails.findOne({ _id: req.session.userId })
+            .then((aluminiData) => {
+                // console.log(aluminiData.Name);
+                if (aluminiData && aluminiData.image && aluminiData.image.data) {
+                    res.render('profile.ejs', { aluminiData });
+                } else {
+                    res.render('profile.ejs', { aluminiData });
+                }
+            })
+            .catch((error) => {
+                // Log the error to the console
+                console.error(error);
+    
+                // Send a 500 Internal Server Error response with an error message
+                res.status(500).send('Internal Server Error: Unable to retrieve user data');
+            });
+
+    }else{
+        res.redirect("/login");
+    }
+});
+
+app.use('/images', express.static(path.join(__dirname, 'images')));
+
+// handeling client profile page
+app.get("/uploadimg", (req, res) => {
     if (req.session.isAuthorised) {
         userDetails.find({ _id: req.session.userId })
             .then(details => {
                 // console.log(details[0].Name)
-                console.log(details);
-                console.log(details[0].Gender);
-                res.render("profile.ejs", {
-                    array: details
+                res.render("uploadProfilepic.ejs", {
+                    
                 });
             })
             .catch(err => {
@@ -489,8 +526,43 @@ app.get("/account/profile", (req, res) => {
     }
 });
 
-// handeling user Contact Info route
 
+// const iupload = multer({ dest: 'uploads/' });
+const iupload = multer({ dest: 'uploads/' });
+app.post('/submit', iupload.single('image'), async (req, res) => {
+    const userId = req.session.userId;
+
+    try {
+        const existingData = await userDetails.findOne({ _id: userId });
+
+        if (existingData) {
+            // Document with the same _id (userId) already exists, update it
+            existingData.image.data = fs.readFileSync(req.file.path);
+            existingData.image.contentType = req.file.mimetype;
+            await existingData.save();
+        } else {
+            // Create a new document
+            const newData = new userDetails({
+                _id: userId,
+                image: {
+                    data: fs.readFileSync(req.file.path),
+                    contentType: req.file.mimetype,
+                },
+            });
+            await newData.save();
+        }
+
+        res.redirect("/account/profile");
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
+
+
+// handeling user Contact Info route
 app.get("/userContact", (req, res) => {
     if (req.session.isAuthorised) {
         userDetails.find({ _id: req.session.userId })
@@ -509,7 +581,7 @@ app.get("/userContact", (req, res) => {
         res.redirect("/login");
     }
 });
-
+// handeling user Contact post Info route
 app.post("/userContact", (req, res) => {
     if (req.session.isAuthorised) {
         userDetails.updateOne({ _id: req.session.userId }, {Mobile:req.body.Mobile, Email: req.body.Email})
