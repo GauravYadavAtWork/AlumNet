@@ -708,6 +708,7 @@ app.get('/download/:id', (req, res) => {
 
 app.get("/logout", (req, res) => {
     // Destroy the session and redirect to the login page
+    req.session.isAuthorised=false;
     req.session.destroy(err => {
         if (err) {
             console.error(err);
