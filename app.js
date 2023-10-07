@@ -126,6 +126,14 @@ app.post("/login", (req, res) => {
             }
         })
 });
+//handling the gallery page
+app.get("/gallery", (req, res) => {
+    if(req.session.isAuthorised){
+        res.render("gallery");
+    } else {
+        res.redirect("/login");
+    }
+});
 
 //handling fgtpage get requests
 app.get("/fgtPassword", (req, res) => {
