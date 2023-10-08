@@ -321,12 +321,9 @@
       <ul>
         <% documents.forEach(document => { %>
         <div class="image-upload-label">
-          <li type="none">
-            <a href="/download/<%= document._id %>"
-              ><u><%= document.name %></u></a
-            >
-          </li>
+          <li type="none"><a href="/download/<%= document._id %>"><u><%= document.name %></u></a></li>
         </div>
+        <br>
         <% }); %>
       </ul>
     </div>
