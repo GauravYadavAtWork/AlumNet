@@ -777,7 +777,7 @@ app.get("/logout", (req, res) => {
 
 
 //listening on conventional port
-app.listen(port, () => {
+app.listen(process.env.PORT|| port, () => {
     console.log(`Server Started On Port ${port}`);
 });
 
