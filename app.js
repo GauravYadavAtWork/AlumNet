@@ -606,14 +606,7 @@ app.post("/userContact", (req, res) => {
     }
 });
 
-//handling upload job get requets
-app.get("/uploadJob",(req,res)=>{
-    if(req.session.isAuthorised){
-        res.render("postjob.ejs");
-    }else{
-        res.redirect("/login");
-    }
-});
+
 
 
 //handling jobDetails get requests
@@ -698,13 +691,67 @@ app.get('/download/:id', (req, res) => {
 
             res.setHeader('Content-Disposition', `attachment; filename="${document.name}"`);
             res.setHeader('Content-Type', 'application/octet-stream');
-            res.send(document.data);
+            res.end(document.data);
         })
         .catch((error) => {
             console.error('Error fetching document:', error);
             res.status(500).send('Error fetching document.');
         });
 });
+
+
+//handling job uploads
+const storage1 = multer.memoryStorage();
+const upload1 = multer({ storage1 });
+
+const jobDocuments = mongoose.model('jobDocuments', {
+    name: String,
+    data: Buffer,
+});
+
+
+//handling upload job get requets---------------------------------
+app.get("/uploadJob",(req,res)=>{
+    if(req.session.isAuthorised){
+        res.render("postjob.ejs",{
+            message:""
+        });
+    }else{
+        res.redirect("/login");
+    }
+});
+
+
+app.post('/uploadJob', upload.single('file'), (req, res) => {
+    if(req.session.isAuthorised){
+
+        if (!req.file) {
+            return res.status(400).send('No file uploaded.');
+        }
+    
+        const fileName = req.file.originalname;
+        const fileBuffer = req.file.buffer;
+    
+        const document = new jobDocuments({ name: fileName, data: fileBuffer });
+    
+        document
+            .save()
+            .then(() => {
+                console.log('Document uploaded successfully. ' + fileName);
+                res.render("postjob.ejs",{
+                    message:"Document Uploaded"
+                });
+            })
+            .catch((error) => {
+                console.error('Error saving document:', error);
+                res.status(500).send('Error uploading the document.');
+            });
+    }else{
+        res.redirect("/");
+    }
+});
+
+// ------------------- job documents upload code ends here-------------------------
 
 //handling the gallery page
 app.get("/gallery", (req, res) => {
@@ -714,8 +761,6 @@ app.get("/gallery", (req, res) => {
         res.redirect("/login");
     }
 });
-
-
 
 
 app.get("/logout", (req, res) => {

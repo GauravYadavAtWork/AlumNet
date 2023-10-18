@@ -327,33 +327,28 @@
         </div>
       </nav>
     </section>
-
+    <h1><%= message %></h1>
     <div class="profile-section">
       <div class="profile-title">Upload-Jobs</div>
-      <form action="/uploadjob" method="post">
-        <div class="form-content">
-          <div>
-            <p>
-              <i
-                >Please upload Job and Internships offers by your company on
-                this portal so that it can be shared with the students of the
-                college !</i
-              >
-            </p>
-            <div class="profile-item">
-              <label for="name" class="profile-label">Document</label>
-              <input
-                type="file"
-                id="name"
-                name="Mobile"
-                class="profile-input"
-                required
-              />
-            </div>
-          </div>
-          <br />
-        </div>
-        <button type="submit" class="image-upload-label">Upload</button>
+      <h4>Please upload job/internship offers provided by your company to the freshers and your fellow juniors</h4>
+      <form
+        action="/uploadJob"
+        method="POST"
+        enctype="multipart/form-data"
+        class="container"
+      >
+        <label for="file" class="upload-button">
+          <span class="file-input-label">Choose a file</span>
+          <input
+            type="file"
+            id="file"
+            name="file"
+            required
+            onchange="updateFileName()"
+          />
+        </label>
+        <span class="file-name" id="file-name"></span>
+        <button type="submit">Upload</button>
       </form>
     </div>
 
