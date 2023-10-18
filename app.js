@@ -32,7 +32,7 @@ app.use(
 app.set("view engine", "ejs");
 
 //connecting to the database
-mongoose.connect("mongodb+srv://alumnetpsit:lChuqrU4FUCmSRuT@cluster0.xzif614.mongodb.net/AluminiDB", { useNewUrlParser: true });
+mongoose.connect(process.env.DATABASELINK, { useNewUrlParser: true });
 
 //making a schema
 const aluminiSchema = new mongoose.Schema({
