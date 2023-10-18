@@ -1,101 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AlumNet Gallery</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap"
+      rel="stylesheet"
+    />
     <link rel="Webpage Icon" href="/PSIT_logo_green.svg" style="fill: green" />
     <style>
-        
-        body {
-            font-family: 'Work Sans', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
+      body {
+        font-family: "Work Sans", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+      }
 
-        .header {
-            padding: 0px 0;
-            background-color: #2ecc70;
-        }
+      .header {
+        padding: 0px 0;
+        background-color: #2ecc70;
+      }
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2%;
-        }
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 2%;
+      }
 
-        nav h1 {
-            font-size: 24px;
-            color: white;
-        }
+      nav h1 {
+        font-size: 24px;
+        color: white;
+      }
 
+      .menu-icon {
+        display: none;
+        cursor: pointer;
+        color: white;
+        z-index: 101;
+        font-size: 25px;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 15px;
+      }
+
+      .nav-links ul {
+        display: flex;
+        gap: 20px;
+      }
+
+      .nav-links ul li {
+        list-style: none;
+      }
+
+      .nav-links ul li a {
+        text-decoration: none;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+      }
+
+      .nav-links ul li a:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      @media only screen and (max-width: 768px) {
         .menu-icon {
-            display: none;
-            cursor: pointer;
-            color: white;
-            z-index: 101;
-            font-size: 25px;
+          display: block;
         }
 
         .nav-links {
-            display: flex;
-            gap: 15px;
+          position: fixed;
+          top: 0;
+          right: -100%; /* Initially off the screen */
+          height: 100vh;
+          width: 100%; /* Full width */
+          background-color: rgba(
+            46,
+            204,
+            112,
+            0.8
+          ); /* Transparent green background */
+          z-index: 100;
+          flex-direction: column;
+          justify-content: center; /* Centering items vertically */
+          gap: 20px;
+          transition: right 0.3s;
         }
 
         .nav-links ul {
-            display: flex;
-            gap: 20px;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
         }
-
-        .nav-links ul li {
-            list-style: none;
-        }
-
-        .nav-links ul li a {
-            text-decoration: none;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-        .nav-links ul li a:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        @media only screen and (max-width: 768px) {
-            .menu-icon {
-                display: block;
-            }
-
-            .nav-links {
-                position: fixed;
-                top: 0;
-                right: -100%; /* Initially off the screen */
-                height: 100vh;
-                width: 100%; /* Full width */
-                background-color: rgba(46, 204, 112, 0.8); /* Transparent green background */
-                z-index: 100;
-                flex-direction: column;
-                justify-content: center; /* Centering items vertically */
-                gap: 20px;
-                transition: right 0.3s;
-            }
-
-            .nav-links ul {
-                width: 100%;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 20px;
-            }
 
         .nav-links.active {
           right: 0;
@@ -125,172 +134,165 @@
         }
       }
 
+      h1 {
+        padding-top: 20px;
+        color: white;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.381);
+      }
 
-        h1 {
-            padding-top: 20px;
-            color: white;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.381);
-        }
+      .container {
+        max-width: 1200px;
+        margin: 50px auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        position: relative;
+        z-index: 1;
+      }
+      .container {
+        grid-row-gap: 40px;
+      }
 
+      .alumni {
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        background-color: #fff;
+        border-radius: 8px;
+        text-align: center;
+        overflow: hidden;
+        position: relative;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .alumni img {
+        max-width: 100%;
+        height: 200px;
+        border-radius: 8px 8px 0 0;
+        object-fit: cover;
+      }
 
+      .alumni:hover {
+        transform: scale(1.05);
+        box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2);
+      }
+
+      .alumni::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 150%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.1);
+        transform: rotate(45deg) translateX(-50%);
+        pointer-events: none;
+        transition: transform 0.5s;
+      }
+
+      .alumni:hover::before {
+        transform: rotate(45deg) translateX(-150%);
+      }
+
+      .alumni img {
+        border-radius: 8px 8px 0 0;
+      }
+
+      .alumni-name {
+        margin-top: 10px;
+        font-weight: bold;
+      }
+
+      .alumni-package {
+        color: #2ecc70;
+        margin-top: 5px;
+      }
+
+      /* Responsive */
+      @media screen and (max-width: 768px) {
         .container {
-            max-width: 1200px;
-            margin: 50px auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            position: relative;
-            z-index: 1;
-            
+          grid-template-columns: repeat(2, 1fr);
         }
+      }
+
+      @media screen and (max-width: 500px) {
         .container {
-    grid-row-gap: 40px;  
-    
-}
-
-
-        .alumni {
-            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
-            padding: 10px;
-            background-color: #fff;
-            border-radius: 8px;
-            text-align: center;
-            overflow: hidden;
-            position: relative;
-            cursor: pointer;
-            transition: all 0.3s ease;
+          grid-template-columns: 1fr;
         }
-         .alumni img {
-    max-width: 100%;
-    height: 200px; 
-    border-radius: 8px 8px 0 0;
-    object-fit: cover;
-} 
-
-
-        .alumni:hover {
-            transform: scale(1.05);
-            box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .alumni::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            width: 150%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.1);
-            transform: rotate(45deg) translateX(-50%);
-            pointer-events: none;
-            transition: transform 0.5s;
-        }
-
-        .alumni:hover::before {
-            transform: rotate(45deg) translateX(-150%);
-        }
-
-        .alumni img {
-            border-radius: 8px 8px 0 0;
-        }
-
-        .alumni-name {
-            margin-top: 10px;
-            font-weight: bold;
-        }
-
-        .alumni-package {
-            color: #2ecc70;
-            margin-top: 5px;
-        }
-
-        /* Responsive */
-        @media screen and (max-width: 768px) {
-            .container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media screen and (max-width: 500px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-        }
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <section class="header">
-        <nav>
-          <h1>AlumNet</h1>
-          <div class="menu-icon" onclick="toggleMenu()">
-            <i class="fas fa-bars"></i>
-          </div>
-  
-          <div class="nav-links" id="navLinks">
-            <ul>
-              <li><a href="/account/profile">Profile</a></li>
-              <li><a href="/jobDetails">Job Information</a></li>
-              <li><a href="/userContact">Contact</a></li>
-              <li><a href="/uploadJob">Post Jobs & Internships</a></li>
-              <li><a href="/gallery">Gallery</a></li>
+      <nav>
+        <h1>AlumNet</h1>
+        <div class="menu-icon" onclick="toggleMenu()">
+          <i class="fas fa-bars"></i>
+        </div>
 
-              <li><a href="">Events & Webinars</a></li>
-              <li><a href="/noticeBoard">Notice Board</a></li>
-              <li><a href="/logout">LogOut</a></li>
-            </ul>
-          </div>
-        </nav>
-      </section>
+        <div class="nav-links" id="navLinks">
+          <ul>
+            <li><a href="/account/profile">Profile</a></li>
+            <li><a href="/jobDetails">Job Information</a></li>
+            <li><a href="/userContact">Contact</a></li>
+            <li><a href="/uploadJob">Post Jobs & Internships</a></li>
+            <li><a href="/gallery">Gallery</a></li>
 
-    <h1><center>Every Alumnus is Unique, Some Stories Just Shine Brighter</center></h1>
+            <li><a href="">Events & Webinars</a></li>
+            <li><a href="/noticeBoard">Notice Board</a></li>
+            <li><a href="/logout">LogOut</a></li>
+          </ul>
+        </div>
+      </nav>
+    </section>
+
+    <h1>
+      <center>Every Alumnus is Unique, Some Stories Just Shine Brighter</center>
+    </h1>
 
     <div class="container">
-        <div class="alumni">
-            <img src="alu1.jpeg" alt="Alumni Name">
-            <div class="alumni-name">Alumni 1</div>
-            <div class="alumni-package">$80,000 p.a.</div>
-        </div>
-        <div class="alumni">
-            <img src="alu2.jpeg" alt="Alumni Name">
-            <div class="alumni-name">Alumni 1</div>
-            <div class="alumni-package">$80,000 p.a.</div>
-        </div>
-        
-        <div class="alumni">
-          <img src="alu3.jpeg" alt="Alumni Name">
+      <div class="alumni">
+        <img src="alu1.jpeg" alt="Alumni Name" />
+        <div class="alumni-name">Alumni 1</div>
+        <div class="alumni-package">$80,000 p.a.</div>
+      </div>
+      <div class="alumni">
+        <img src="alu2.jpeg" alt="Alumni Name" />
+        <div class="alumni-name">Alumni 1</div>
+        <div class="alumni-package">$80,000 p.a.</div>
+      </div>
 
-            <div class="alumni-name">Alumni 1</div>
-            <div class="alumni-package">$80,000 p.a.</div>
-        </div>
-        <div class="alumni">
-            <img src="alu4.jpeg" alt="Alumni Name">
-            <div class="alumni-name">Alumni 1</div>
-            <div class="alumni-package">$80,000 p.a.</div>
-        </div>
-        <div class="alumni">
-            <img src="alu5.jpeg" alt="Alumni Name">
-            <div class="alumni-name">Alumni 1</div>
-            <div class="alumni-package">$80,000 p.a.</div>
-        </div>
-        <div class="alumni">
-            <img src="alu6.jpeg" alt="Alumni Name">
-            <div class="alumni-name">Alumni 1</div>
-            <div class="alumni-package">$80,000 p.a.</div>
-        </div>
-        
-        
+      <div class="alumni">
+        <img src="alu3.jpeg" alt="Alumni Name" />
+        <div class="alumni-name">Alumni 1</div>
+        <div class="alumni-package">$80,000 p.a.</div>
+      </div>
+      <div class="alumni">
+        <img src="alu4.jpeg" alt="Alumni Name" />
+        <div class="alumni-name">Alumni 1</div>
+        <div class="alumni-package">$80,000 p.a.</div>
+      </div>
+      <div class="alumni">
+        <img src="alu5.jpeg" alt="Alumni Name" />
+        <div class="alumni-name">Alumni 1</div>
+        <div class="alumni-package">$80,000 p.a.</div>
+      </div>
+      <div class="alumni">
+        <img src="alu6.jpeg" alt="Alumni Name" />
+        <div class="alumni-name">Alumni 1</div>
+        <div class="alumni-package">$80,000 p.a.</div>
+      </div>
     </div>
 
     <script>
-     function toggleMenu() {
-            const navLinks = document.getElementById("navLinks");
-            if (navLinks.style.right === "0%" || navLinks.style.right === "") {
-                navLinks.style.right = "-100%";
-            } else {
-                navLinks.style.right = "0%";
-            }
+      function toggleMenu() {
+        const navLinks = document.getElementById("navLinks");
+        if (navLinks.style.right === "0%" || navLinks.style.right === "") {
+          navLinks.style.right = "-100%";
+        } else {
+          navLinks.style.right = "0%";
         }
+      }
     </script>
-</body>
+  </body>
 </html>

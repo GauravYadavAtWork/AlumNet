@@ -126,14 +126,9 @@ app.post("/login", (req, res) => {
             }
         })
 });
-//handling the gallery page
-app.get("/gallery", (req, res) => {
-    if(req.session.isAuthorised){
-        res.render("gallery");
-    } else {
-        res.redirect("/login");
-    }
-});
+
+
+
 
 //handling fgtpage get requests
 app.get("/fgtPassword", (req, res) => {
@@ -709,6 +704,15 @@ app.get('/download/:id', (req, res) => {
             console.error('Error fetching document:', error);
             res.status(500).send('Error fetching document.');
         });
+});
+
+//handling the gallery page
+app.get("/gallery", (req, res) => {
+    if(req.session.isAuthorised){
+        res.render("gallery");
+    } else {
+        res.redirect("/login");
+    }
 });
 
 
